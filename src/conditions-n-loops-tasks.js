@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0; 
 }
 
 /**
@@ -38,8 +38,13 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b && a > c) {
+    return a;
+  } else if (b > a && b > c) {
+    return b;
+  }
+  return c;
 }
 
 /**
@@ -60,8 +65,9 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+
+function canQueenCaptureKing(queen, king) {
+    return (queen.x === king.x || queen.y === king.y || Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y));
 }
 
 /**
@@ -82,11 +88,14 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if ((a === b || a === c || b === c) && (a > 0 && b > 0 && c > 0)) {
+    return true;
+  } 
+  return false;
 }
 
-/**
+/** ?????????????????????????????????????????????????????????????????????????????????????????????????
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
  *
@@ -100,9 +109,14 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
-}
+/*
+function convertToRomanNumerals(num) {
+  if (num <= 0 || num > 39) {
+    alert("You must instert a number between 1 and 39!");
+  }
+  
+}*/
+
 
 /**
  * Converts a number to a string, replacing digits with words.
@@ -119,8 +133,36 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let string = '';
+
+  for (let i = 0; i < numberStr.length; i += 1) {
+    if (numberStr[i] === '0') {
+      string += 'zero';
+    } else if (numberStr[i] === '1 ') {
+      string += 'one';
+    } else if (numberStr[i] === '2 ') {
+      string += 'two';
+    } else if (numberStr[i] === '3 ') {
+      string += 'three';
+    } else if (numberStr[i] === '4 ') {
+      string += 'four';
+    } else if (numberStr[i] === '5 ') {
+      string += 'five';  
+    } else if (numberStr[i] === '6 ') {
+      string += 'six';
+    } else if (numberStr[i] === '7 ') {
+      string += 'seven';    
+    } else if (numberStr[i] === '8 ') {
+      string += 'eight';  
+    } else if (numberStr[i] === '9 ') {
+      string += 'nine';    
+    } else if (numberStr[i] === '- ') {
+      string += 'minus';  
+    } else if (numberStr[i] === '. ' || numberStr[i] === ', ') {
+      string += 'point';  
+  }
+  return string;
 }
 
 /**
@@ -135,8 +177,11 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  if (str === str.split('').reverse().join("")) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -153,8 +198,18 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let result = 0;
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return result = i;
+    } else {
+      result = -1;
+    } 
+  }
+
+  return result;
 }
 
 /**
@@ -172,11 +227,19 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let str = num.toString();
+  console.log(str);  
+  let result = false;
+  for (let i = 0; i < str.length; i += 1) {
+      if (str[i] == digit) {
+          return result = true;
+      }    
+  }
+  return result;    
 }
 
-/**
+/** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * Finds the index of an element in an array where the sum of elements to the left equals the sum of elements to the right.
  * If such an index does not return -1.
  * In this task, the use of methods of the Array and String classes is not allowed.
@@ -189,9 +252,10 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
-}
+/*
+function getBalanceIndex(arr) {
+
+}*/
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
@@ -215,7 +279,6 @@ function getBalanceIndex(/* arr */) {
  *        ]
  */
 function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
 }
 
 /**
@@ -234,7 +297,6 @@ function getSpiralMatrix(/* size */) {
  *  ]                 ]
  */
 function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
 }
 
 /**
@@ -252,7 +314,6 @@ function rotateMatrix(/* matrix */) {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
 }
 
 /**
@@ -273,7 +334,6 @@ function sortByAsc(/* arr */) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
 }
 
 /**
@@ -294,7 +354,6 @@ function shuffleChar(/* str, iterations */) {
  * @returns {number} The nearest larger number, or original number if none exists.
  */
 function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
 }
 
 module.exports = {
