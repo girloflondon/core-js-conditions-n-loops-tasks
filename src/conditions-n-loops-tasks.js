@@ -39,7 +39,7 @@ function isPositive(number) {
  *  -0.1, 0, 0.2  => 0.2
  */
 function getMaxNumber(a, b, c) {
-  let x;
+  let x = a;
   if (a > b && a > c) {
     x = a;
   } else if (b > a && b > c) {
@@ -68,7 +68,6 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-
 function canQueenCaptureKing(queen, king) {
   return (
     queen.x === king.x ||
@@ -96,13 +95,13 @@ function canQueenCaptureKing(queen, king) {
  *  3, 0, 3   => false
  */
 function isIsoscelesTriangle(a, b, c) {
-  if ((a === b || a === c || b === c) && a > 0 && b > 0 && c > 0) {
-    return true;
+  if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || c + b <= a) {
+    return false;
   }
-  return false;
+  return a === b || b === c || a === c;
 }
 
-/** ?????????????????????????????????????????????????????????????????????????????????????????????????
+/**
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
  *
@@ -116,29 +115,32 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
+
 function convertToRomanNumerals(num) {
-  const romanNumbers = {
-    1: 'I',
-    2: 'II',
-    3: 'III',
-    4: 'IV',
-    5: 'V',
-    6: 'VI',
-    7: 'VII',
-    8: 'VIII',
-    9: 'IX',
-    10: 'X',
-  };
-
-  let finalNumber = '';
-
-  if (num > 0 && num <= 39) {
-    for (let x = 0; x < Math.floor(num / 10); x++) {
-      finalNumber += romanNumbers[10];
+  let finalNumber;
+  const romanNumbers = [
+    'I',
+    'II',
+    'III',
+    'IV',
+    'V',
+    'VI',
+    'VII',
+    'VIII',
+    'IX',
+    'X',
+  ];
+  if (num <= 10) {
+    finalNumber = romanNumbers[num - 1];
+  }
+  if (num > 10) {
+    const first = Math.floor(num / 10);
+    const second = num % 10;
+    let firstRoman = '';
+    for (let i = 1; i <= first; i += 1) {
+      firstRoman += 'X';
     }
-    finalNumber += romanNumbers[num % 10];
-  } else {
-    finalNumber = 'You must instert a number between 1 and 39!';
+    finalNumber = `${firstRoman}${romanNumbers[second - 1]}`;
   }
   return finalNumber;
 }
@@ -158,38 +160,57 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-/*
+
 function convertNumberToString(numberStr) {
   let string = '';
 
-  for (let i = 0; i < numberStr.length; i += 1) {
-    if (numberStr[i] === '0') {
-      string += 'zero';
-    } else if (numberStr[i] === '1 ') {
-      string += 'one';
-    } else if (numberStr[i] === '2 ') {
-      string += 'two';
-    } else if (numberStr[i] === '3 ') {
-      string += 'three';
-    } else if (numberStr[i] === '4 ') {
-      string += 'four';
-    } else if (numberStr[i] === '5 ') {
-      string += 'five';
-    } else if (numberStr[i] === '6 ') {
-      string += 'six';
-    } else if (numberStr[i] === '7 ') {
-      string += 'seven';
-    } else if (numberStr[i] === '8 ') {
-      string += 'eight';
-    } else if (numberStr[i] === '9 ') {
-      string += 'nine';
-    } else if (numberStr[i] === '- ') {
-      string += 'minus';
-    } else if (numberStr[i] === '. ' || numberStr[i] === ', ') {
-      string += 'point';
+  for (let i = 0; i <= numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '0':
+        string += i === 0 ? 'zero' : ' zero';
+        break;
+      case '1':
+        string += i === 0 ? 'one' : ' one';
+        break;
+      case '2':
+        string += i === 0 ? 'two' : ' two';
+        break;
+      case '3':
+        string += i === 0 ? 'three' : ' three';
+        break;
+      case '4':
+        string += i === 0 ? 'four' : ' four';
+        break;
+      case '5':
+        string += i === 0 ? 'five' : ' five';
+        break;
+      case '6':
+        string += i === 0 ? 'six' : ' six';
+        break;
+      case '7':
+        string += i === 0 ? 'seven' : ' seven';
+        break;
+      case '8':
+        string += i === 0 ? 'eight' : ' eight';
+        break;
+      case '9':
+        string += i === 0 ? 'nine' : ' nine';
+        break;
+      case '-':
+        string += i === 0 ? 'minus' : ' minus';
+        break;
+      case '.':
+        string += i === 0 ? 'point' : ' point';
+        break;
+      case ',':
+        string += i === 0 ? 'point' : ' point';
+        break;
+      default:
+        return string;
     }
-    return string;
-  } */
+  }
+  return string;
+}
 
 /**
  * Determines whether a string is a palindrome.
@@ -204,10 +225,12 @@ function convertNumberToString(numberStr) {
  *  'qweqwe'    => false
  */
 function isPalindrome(str) {
-  if (str === str.split('').reverse().join('')) {
-    return true;
+  for (let i = 0; i < Math.floor(str.length / 2); i += 1) {
+    if (str[i] !== str[str.length - i - 1]) {
+      return false;
+    }
   }
-  return false;
+  return true;
 }
 
 /**
@@ -225,17 +248,12 @@ function isPalindrome(str) {
  *  'qwerty', 'p'     => -1
  */
 function getIndexOf(str, letter) {
-  let result = 0;
-
   for (let i = 0; i < str.length; i += 1) {
     if (str[i] === letter) {
-      result = i;
-    } else {
-      result = -1;
+      return i;
     }
   }
-
-  return result;
+  return -1;
 }
 
 /**
@@ -254,17 +272,16 @@ function getIndexOf(str, letter) {
  *  12345, 6    => false
  */
 function isContainNumber(num, digit) {
-  const str = num.toString();
-  let result = false;
+  const str = String(num);
   for (let i = 0; i < str.length; i += 1) {
-    if (str[i] === digit) {
-      result = true;
+    if (str[i] === String(digit)) {
+      return true;
     }
   }
-  return result;
+  return false;
 }
 
-/** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/**
  * Finds the index of an element in an array where the sum of elements to the left equals the sum of elements to the right.
  * If such an index does not return -1.
  * In this task, the use of methods of the Array and String classes is not allowed.
@@ -277,8 +294,23 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-/*
-function getBalanceIndex(arr) {} */
+
+function getBalanceIndex(arr) {
+  let sum = 0;
+  let leftSum = 0;
+  let rightSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    sum += arr[i];
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    leftSum += arr[i];
+    rightSum = sum - leftSum - arr[i + 1];
+    if (leftSum === rightSum) {
+      return i + 1;
+    }
+  }
+  return -1;
+}
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
@@ -301,7 +333,9 @@ function getBalanceIndex(arr) {} */
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {}
+function getSpiralMatrix(/* size */) {
+  throw new Error('Not implemented');
+}
 
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
@@ -318,7 +352,9 @@ function getSpiralMatrix(/* size */) {}
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {}
+function rotateMatrix(/* matrix */) {
+  throw new Error('Not implemented');
+}
 
 /**
  * Sorts an array of numbers in ascending order in place.
@@ -334,7 +370,9 @@ function rotateMatrix(/* matrix */) {}
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {}
+function sortByAsc(/* arr */) {
+  throw new Error('Not implemented');
+}
 
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
@@ -353,7 +391,9 @@ function sortByAsc(/* arr */) {}
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {}
+function shuffleChar(/* str, iterations */) {
+  throw new Error('Not implemented');
+}
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
@@ -361,7 +401,7 @@ function shuffleChar(/* str, iterations */) {}
  * Usage of String class methods is not allowed in this task.
  *
  * @example:
- * 12345    => 12354
+ * 12345    => 12354git
  * 123450   => 123504
  * 12344    => 12434
  * 123440   => 124034
@@ -372,7 +412,9 @@ function shuffleChar(/* str, iterations */) {}
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {}
+function getNearestBigger(/* number */) {
+  throw new Error('Not implemented');
+}
 
 module.exports = {
   isPositive,
@@ -380,11 +422,11 @@ module.exports = {
   canQueenCaptureKing,
   isIsoscelesTriangle,
   convertToRomanNumerals,
-  /* convertNumberToString, */
+  convertNumberToString,
   isPalindrome,
   getIndexOf,
   isContainNumber,
-  /* getBalanceIndex, */
+  getBalanceIndex,
   getSpiralMatrix,
   rotateMatrix,
   sortByAsc,
