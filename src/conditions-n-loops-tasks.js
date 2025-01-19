@@ -22,7 +22,7 @@
  *  -5 => false
  */
 function isPositive(number) {
-  return number >= 0; 
+  return number >= 0;
 }
 
 /**
@@ -39,12 +39,15 @@ function isPositive(number) {
  *  -0.1, 0, 0.2  => 0.2
  */
 function getMaxNumber(a, b, c) {
+  let x;
   if (a > b && a > c) {
-    return a;
+    x = a;
   } else if (b > a && b > c) {
-    return b;
+    x = b;
+  } else {
+    x = c;
   }
-  return c;
+  return x;
 }
 
 /**
@@ -67,7 +70,11 @@ function getMaxNumber(a, b, c) {
  */
 
 function canQueenCaptureKing(queen, king) {
-    return (queen.x === king.x || queen.y === king.y || Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y));
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -89,9 +96,9 @@ function canQueenCaptureKing(queen, king) {
  *  3, 0, 3   => false
  */
 function isIsoscelesTriangle(a, b, c) {
-  if ((a === b || a === c || b === c) && (a > 0 && b > 0 && c > 0)) {
+  if ((a === b || a === c || b === c) && a > 0 && b > 0 && c > 0) {
     return true;
-  } 
+  }
   return false;
 }
 
@@ -109,14 +116,32 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-/*
 function convertToRomanNumerals(num) {
-  if (num <= 0 || num > 39) {
-    alert("You must instert a number between 1 and 39!");
-  }
-  
-}*/
+  const romanNumbers = {
+    1: 'I',
+    2: 'II',
+    3: 'III',
+    4: 'IV',
+    5: 'V',
+    6: 'VI',
+    7: 'VII',
+    8: 'VIII',
+    9: 'IX',
+    10: 'X',
+  };
 
+  let finalNumber = '';
+
+  if (num > 0 && num <= 39) {
+    for (let x = 0; x < Math.floor(num / 10); x++) {
+      finalNumber += romanNumbers[10];
+    }
+    finalNumber += romanNumbers[num % 10];
+  } else {
+    finalNumber = 'You must instert a number between 1 and 39!';
+  }
+  return finalNumber;
+}
 
 /**
  * Converts a number to a string, replacing digits with words.
@@ -133,6 +158,7 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
+/*
 function convertNumberToString(numberStr) {
   let string = '';
 
@@ -148,22 +174,22 @@ function convertNumberToString(numberStr) {
     } else if (numberStr[i] === '4 ') {
       string += 'four';
     } else if (numberStr[i] === '5 ') {
-      string += 'five';  
+      string += 'five';
     } else if (numberStr[i] === '6 ') {
       string += 'six';
     } else if (numberStr[i] === '7 ') {
-      string += 'seven';    
+      string += 'seven';
     } else if (numberStr[i] === '8 ') {
-      string += 'eight';  
+      string += 'eight';
     } else if (numberStr[i] === '9 ') {
-      string += 'nine';    
+      string += 'nine';
     } else if (numberStr[i] === '- ') {
-      string += 'minus';  
+      string += 'minus';
     } else if (numberStr[i] === '. ' || numberStr[i] === ', ') {
-      string += 'point';  
-  }
-  return string;
-}
+      string += 'point';
+    }
+    return string;
+  } */
 
 /**
  * Determines whether a string is a palindrome.
@@ -178,7 +204,7 @@ function convertNumberToString(numberStr) {
  *  'qweqwe'    => false
  */
 function isPalindrome(str) {
-  if (str === str.split('').reverse().join("")) {
+  if (str === str.split('').reverse().join('')) {
     return true;
   }
   return false;
@@ -203,10 +229,10 @@ function getIndexOf(str, letter) {
 
   for (let i = 0; i < str.length; i += 1) {
     if (str[i] === letter) {
-      return result = i;
+      result = i;
     } else {
       result = -1;
-    } 
+    }
   }
 
   return result;
@@ -228,15 +254,14 @@ function getIndexOf(str, letter) {
  *  12345, 6    => false
  */
 function isContainNumber(num, digit) {
-  let str = num.toString();
-  console.log(str);  
+  const str = num.toString();
   let result = false;
   for (let i = 0; i < str.length; i += 1) {
-      if (str[i] == digit) {
-          return result = true;
-      }    
+    if (str[i] === digit) {
+      result = true;
+    }
   }
-  return result;    
+  return result;
 }
 
 /** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -253,9 +278,7 @@ function isContainNumber(num, digit) {
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
 /*
-function getBalanceIndex(arr) {
-
-}*/
+function getBalanceIndex(arr) {} */
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
@@ -278,8 +301,7 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-}
+function getSpiralMatrix(/* size */) {}
 
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
@@ -296,8 +318,7 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-}
+function rotateMatrix(/* matrix */) {}
 
 /**
  * Sorts an array of numbers in ascending order in place.
@@ -313,8 +334,7 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-}
+function sortByAsc(/* arr */) {}
 
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
@@ -333,8 +353,7 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-}
+function shuffleChar(/* str, iterations */) {}
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
@@ -353,8 +372,7 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-}
+function getNearestBigger(/* number */) {}
 
 module.exports = {
   isPositive,
@@ -362,11 +380,11 @@ module.exports = {
   canQueenCaptureKing,
   isIsoscelesTriangle,
   convertToRomanNumerals,
-  convertNumberToString,
+  /* convertNumberToString, */
   isPalindrome,
   getIndexOf,
   isContainNumber,
-  getBalanceIndex,
+  /* getBalanceIndex, */
   getSpiralMatrix,
   rotateMatrix,
   sortByAsc,
